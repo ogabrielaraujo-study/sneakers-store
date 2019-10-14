@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import { Container, Cart, Logo } from './styles'
 
-import { FiShoppingBag, FiShoppingCart, FiLogOut } from 'react-icons/fi'
+import { FiShoppingBag, FiShoppingCart } from 'react-icons/fi'
 
 function Header({ cartSize }) {
   return (
