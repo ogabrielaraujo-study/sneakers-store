@@ -6,13 +6,20 @@ import Routes from './routes'
 
 import Header from './components/Header'
 
+// redux
+import { Provider } from 'react-redux'
+import './config/ReactotronConfig'
+import store from './store'
+
 export default function App() {
   return (
-    <BrowserRouter>
-      <Header />
-      <Routes />
+    <Provider store={store}>
+      <BrowserRouter>
+        <Header />
+        <Routes />
 
-      <GlobalStyle />
-    </BrowserRouter>
+        <GlobalStyle />
+      </BrowserRouter>
+    </Provider>
   )
 }
