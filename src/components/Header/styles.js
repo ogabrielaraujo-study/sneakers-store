@@ -8,6 +8,18 @@ export const Container = styled.header`
   margin: 50px 0;
 `
 
+export const Logo = styled(Link)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+
+  h1 {
+    color: #fff;
+    margin-left: 25px;
+  }
+`
+
 export const Cart = styled(Link)`
   display: flex;
   align-items: center;

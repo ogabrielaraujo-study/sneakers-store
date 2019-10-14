@@ -1,26 +1,24 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { Link } from 'react-router-dom'
+import { Container, Cart, Logo } from './styles'
 
-import { Container, Cart } from './styles'
-
-import { MdShoppingBasket } from 'react-icons/md'
-import logo from '../../assets/images/logo.svg'
+import { FiShoppingBag, FiShoppingCart, FiLogOut } from 'react-icons/fi'
 
 function Header({ cartSize }) {
   return (
     <Container>
-      <Link to="/">
-        <img src={logo} alt="Logo" />
-      </Link>
+      <Logo to="/">
+        <FiShoppingBag size={40} color="#fff" />
+        <h1>React Store</h1>
+      </Logo>
 
       <Cart to="/cart">
         <div>
           <strong>Meu carrinho</strong>
           <span>{cartSize} itens</span>
         </div>
-        <MdShoppingBasket size={36} color="#fff" />
+        <FiShoppingCart size={36} color="#fff" />
       </Cart>
     </Container>
   )

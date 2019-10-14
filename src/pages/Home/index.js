@@ -7,7 +7,7 @@ import * as CartActions from '../../store/modules/cart/actions'
 
 import api from '../../services/api'
 import { ProductList } from './styles'
-import { MdAddShoppingCart } from 'react-icons/md'
+import { FiPlusCircle } from 'react-icons/fi'
 import { formatPrice } from '../../util/format'
 
 class Home extends Component {
@@ -48,7 +48,7 @@ class Home extends Component {
               onClick={() => this.handleAddProduct(product)}
             >
               <div>
-                <MdAddShoppingCart size={16} color="#fff" /> 1
+                <FiPlusCircle size={16} color="#fff" /> 1
               </div>
 
               <span>Adicionar ao Carrinho</span>

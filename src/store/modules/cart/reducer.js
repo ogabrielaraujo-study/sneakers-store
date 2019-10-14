@@ -1,5 +1,4 @@
 import produce from 'immer'
-import { MdAccountBalance } from 'react-icons/md'
 
 export default function cart(state = [], action) {
   switch (action.type) {
