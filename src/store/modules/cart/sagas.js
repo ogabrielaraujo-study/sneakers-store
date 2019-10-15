@@ -3,6 +3,7 @@ import api from '../../../services/api'
 
 import { formatPrice } from '../../../util/format'
 import { addToCartSuccess, updateAmount } from './actions'
+import { toast } from 'react-toastify'
 
 function* addToCart({ id }) {
   const productExists = yield select(state => state.cart.find(p => p.id === id))
@@ -15,7 +16,7 @@ function* addToCart({ id }) {
   const amount = currentAmount + 1
 
   if (amount > stockAmount) {
-    console.tron.warn('ERRO')
+    toast.error('Quantidade solicitada fora de estoque.')
     return
   }
 
@@ -30,6 +31,7 @@ function* addToCart({ id }) {
       priceFormatted: formatPrice(response.data.price),
     }
 
+    toast.success('Produto adicionado ao carrinho')
     yield put(addToCartSuccess(data))
   }
 }
