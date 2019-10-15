@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react'
 
 // redux
 import { connect } from 'react-redux'
@@ -10,59 +10,60 @@ import { ProductList } from './styles'
 import { FiPlusCircle } from 'react-icons/fi'
 import { formatPrice } from '../../util/format'
 
-class Home extends Component {
-  state = {
-    products: [],
-  }
+function Home({ amount, addToCartRequest }) {
+  const [products, setProducts] = useState([])
 
-  async componentDidMount() {
-    const response = await api.get('products')
+  useEffect(() => {
+    async function loadProducts() {
+      const response = await api.get('products')
 
-    const data = response.data.map(product => ({
-      ...product,
-      priceFormatted: formatPrice(product.price),
-    }))
+      const data = response.data.map(product => ({
+        ...product,
+        priceFormatted: formatPrice(product.price),
+      }))
 
-    this.setState({ products: data })
-  }
+      setProducts(data)
+    }
 
-  handleAddProduct = id => {
-    const { addToCartRequest } = this.props
+    loadProducts()
+  }, [])
 
+  function handleAddProduct(id) {
     addToCartRequest(id)
   }
 
-  render() {
-    const { products } = this.state
+  return (
+    <ProductList>
+      {products.map(product => (
+        <li key={product.id}>
+          <img src={product.image} alt={product.title} />
+          <strong>{product.title}</strong>
+          <span>{product.priceFormatted}</span>
 
-    return (
-      <ProductList>
-        {products.map(product => (
-          <li key={product.id}>
-            <img src={product.image} alt={product.title} />
-            <strong>{product.title}</strong>
-            <span>{product.priceFormatted}</span>
+          <button type="button" onClick={() => handleAddProduct(product.id)}>
+            <div>
+              <FiPlusCircle size={16} color="#fff" /> {amount[product.id] || 0}
+            </div>
 
-            <button
-              type="button"
-              onClick={() => this.handleAddProduct(product.id)}
-            >
-              <div>
-                <FiPlusCircle size={16} color="#fff" /> 1
-              </div>
-
-              <span>Adicionar ao Carrinho</span>
-            </button>
-          </li>
-        ))}
-      </ProductList>
-    )
-  }
+            <span>Adicionar ao Carrinho</span>
+          </button>
+        </li>
+      ))}
+    </ProductList>
+  )
 }
+
+const mapStateToProps = state => ({
+  amount: state.cart.reduce((amount, product) => {
+    amount[product.id] = product.amount
+
+    return amount
+  }, {}),
+})
 
 const mapDispatchToProps = dispatch => bindActionCreators(CartActions, dispatch)
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(Home)
