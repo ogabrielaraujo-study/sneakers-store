@@ -4,6 +4,7 @@ import api from '../../../services/api'
 import { formatPrice } from '../../../util/format'
 import { addToCartSuccess, updateAmountSuccess } from './actions'
 import { toast } from 'react-toastify'
+import history from '../../../services/history'
 
 function* addToCart({ id }) {
   const productExists = yield select(state => state.cart.find(p => p.id === id))
@@ -31,8 +32,9 @@ function* addToCart({ id }) {
       priceFormatted: formatPrice(response.data.price),
     }
 
-    toast.success('Produto adicionado ao carrinho')
     yield put(addToCartSuccess(data))
+    toast.success('Produto adicionado ao carrinho')
+    history.push('/cart')
   }
 }
 
