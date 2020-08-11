@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 // redux
 import { useDispatch, useSelector } from 'react-redux'
@@ -9,7 +10,7 @@ import { FiMinusCircle, FiPlusCircle, FiTrash } from 'react-icons/fi'
 import { formatPrice } from '../../util/format'
 
 export default function Cart() {
-  const total = useSelector(state =>
+  const total = useSelector((state) =>
     formatPrice(
       state.cart.reduce((totalSum, product) => {
         return totalSum + product.price * product.amount
@@ -17,8 +18,8 @@ export default function Cart() {
     )
   )
 
-  const cart = useSelector(state =>
-    state.cart.map(product => ({
+  const cart = useSelector((state) =>
+    state.cart.map((product) => ({
       ...product,
       subtotal: formatPrice(product.price * product.amount),
     }))
@@ -47,7 +48,7 @@ export default function Cart() {
           </tr>
         </thead>
         <tbody>
-          {cart.map(product => (
+          {cart.map((product) => (
             <tr key={product.id}>
               <td>
                 <img src={product.image} alt={product.title} />
@@ -59,13 +60,13 @@ export default function Cart() {
               <td>
                 <div>
                   <button type="button" onClick={() => decrement(product)}>
-                    <FiMinusCircle size={20} color="#7159c1" />
+                    <FiMinusCircle size={20} color="#5f73f1" />
                   </button>
 
                   <input type="number" readOnly value={product.amount} />
 
                   <button type="button" onClick={() => increment(product)}>
-                    <FiPlusCircle size={20} color="#7159c1" />
+                    <FiPlusCircle size={20} color="#5f73f1" />
                   </button>
                 </div>
               </td>
@@ -79,7 +80,7 @@ export default function Cart() {
                     dispatch(CartActions.removeFromCart(product.id))
                   }
                 >
-                  <FiTrash size={20} color="#7159c1" />
+                  <FiTrash size={20} color="#5f73f1" />
                 </button>
               </td>
             </tr>
@@ -88,7 +89,7 @@ export default function Cart() {
       </ProductTable>
 
       <footer>
-        <button type="button">Finalizar pedido</button>
+        <Link to="/success">Finalizar pedido</Link>
 
         <Total>
           <span>TOTAL</span>
