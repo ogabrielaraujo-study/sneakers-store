@@ -1,4 +1,4 @@
-# Redux Example
+# Sneakers Store
 
 ```
 yarn install
